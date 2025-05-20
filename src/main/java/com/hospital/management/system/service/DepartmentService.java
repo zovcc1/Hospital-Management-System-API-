@@ -1,5 +1,12 @@
 package com.hospital.management.system.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+
 import com.hospital.management.system.dto.DepartmentDto;
 import com.hospital.management.system.exceptions.AlreadyExistsException;
 import com.hospital.management.system.exceptions.ResourceNotFoundException;
@@ -7,15 +14,10 @@ import com.hospital.management.system.mapper.DepartmentMapper;
 import com.hospital.management.system.model.Department;
 import com.hospital.management.system.repository.DepartmentRepository;
 import com.hospital.management.system.repository.RoomRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepartmentService {
+    @SuppressWarnings("unused")
     private static final Logger log = LogManager.getLogger(DepartmentService.class);
     private final DepartmentRepository departmentRepository;
     private final RoomRepository roomRepository;

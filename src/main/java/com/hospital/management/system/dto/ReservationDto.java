@@ -1,13 +1,12 @@
 package com.hospital.management.system.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.hospital.management.system.enums.ReservationStatus;
-import org.checkerframework.checker.i18n.qual.Localized;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hospital.management.system.enums.ReservationStatus;
 
 public class ReservationDto {
 

@@ -1,9 +1,6 @@
 package com.hospital.management.system.dto;
-
 import com.hospital.management.system.enums.Specialty;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 

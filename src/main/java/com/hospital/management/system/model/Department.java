@@ -6,7 +6,7 @@ import jakarta.persistence.*;
  * Represents a department in the hospital management system.
  * Each department can contain multiple rooms and is identified by a unique ID.
  *
- * <p>Departments typically correspond to specific medical specialties or areas of care,
+ * <p>Departments typically correspond toLong specific medical specialties or areas of care,
  * such as Cardiology, Surgery, or Emergency Medicine.</p>
  *
  * @author kasemn

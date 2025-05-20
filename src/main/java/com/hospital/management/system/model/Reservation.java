@@ -1,13 +1,18 @@
 package com.hospital.management.system.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.hospital.management.system.enums.ReservationStatus;
-import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import com.hospital.management.system.enums.ReservationStatus;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Reservation {
@@ -15,6 +20,7 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+
     private Integer id;
     /*
      * each doctor can have multiple reservation (Many reservation to one Doctor)

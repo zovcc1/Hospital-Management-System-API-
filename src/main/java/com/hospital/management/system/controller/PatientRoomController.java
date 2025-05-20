@@ -77,7 +77,7 @@ public class PatientRoomController {
     public ResponseEntity<ApiResponse>deletePatientRoom(@RequestParam Integer id){
         try {
             patientRoomService.deletePatientRoom(id);
-            if (id == null)
+            if (id != null)
                 return ResponseEntity.status(OK).body(new ApiResponse("deleted",null));
             else
                 return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("not found",null));

@@ -9,8 +9,10 @@ import com.hospital.management.system.mapper.PatientFileMapper;
 import com.hospital.management.system.mapper.PatientRoomMapper;
 import com.hospital.management.system.mapper.RoomMapper;
 import com.hospital.management.system.model.PatientRoom;
+import com.hospital.management.system.model.Room;
 import com.hospital.management.system.repository.PatientRoomRepository;
 import com.hospital.management.system.repository.RoomRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +33,7 @@ public class PatientRoomServiceImpl implements PatientRoomService {
     }
 
     @Override
+    @Transactional
     public PatientRoom createPatientRoom(Integer roomId, Integer patientFileId) {
         PatientFileDto patientFileDto = patientFileServiceImp.getPatientFileById(patientFileId);
         RoomDto roomDto = roomServiceImpl.getRoomById(roomId);
@@ -52,12 +55,12 @@ public class PatientRoomServiceImpl implements PatientRoomService {
     }
 
     /**
-     * @param PatientRoomId
-     * @return
+     * @param patientRoomId
+     * @return {@link PatientRoom}
      */
     @Override
-    public PatientRoom getPatientRoomById(Integer PatientRoomId) {
-        return patientRoomRepository.findById(PatientRoomId).orElseThrow(() -> new ResourceNotFoundException("patient not found"));
+    public PatientRoom getPatientRoomById(Integer patientRoomId) {
+        return patientRoomRepository.findById(patientRoomId).orElseThrow(() -> new ResourceNotFoundException("patient room with id" + patientRoomId + " not found"));
     }
 
 
@@ -95,8 +98,17 @@ public class PatientRoomServiceImpl implements PatientRoomService {
      */
     @Override
     public void deletePatientRoom(Integer id) {
-        patientRoomRepository.findById(id).ifPresentOrElse(patientRoomRepository::save, () -> {
-            throw new ResourceNotFoundException("patient room doesn't exist ");
-        });
+        PatientRoom patientRoom = getPatientRoomById(id);
+
+        if (patientRoom==null){
+            throw new ResourceNotFoundException("patient room with this id:"+" "+id);
+        }
+        else {
+             patientRoomRepository.deleteById(id);
+             Room room  = patientRoom.getRoom();
+             room.setStatus(Status.VACANT);
+             roomRepository.save(room);
+        }
+        
     }
 }

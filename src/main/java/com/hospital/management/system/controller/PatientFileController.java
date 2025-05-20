@@ -3,6 +3,8 @@ package com.hospital.management.system.controller;
 import com.hospital.management.system.dto.PatientFileDto;
 import com.hospital.management.system.response.ApiResponse;
 import com.hospital.management.system.service.PatientFileServiceImp;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +12,11 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
-@RestController()
+@RestController
 @RequestMapping("patient-files")
 public class PatientFileController {
 
+    private static final Logger log = LogManager.getLogger(PatientFileController.class);
     private final PatientFileServiceImp patientFileServiceImp;
 
     public PatientFileController(PatientFileServiceImp patientFileServiceImp) {
@@ -24,9 +27,11 @@ public class PatientFileController {
     public ResponseEntity<ApiResponse> createPatientFile(@RequestBody PatientFileDto request) {
         try {
             PatientFileDto patientFileDto = patientFileServiceImp.createPatientFile(request);
+            log.info("{}", patientFileDto);
             return ResponseEntity.status(OK).body(new ApiResponse("created.", patientFileDto));
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+
         }
 
     }
